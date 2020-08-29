@@ -3,7 +3,7 @@ var express = require("express");
 var router = express.Router();
 
 // Import the model (cat.js) to use its database functions.
-var burger = require("../models/burgers.js");
+var burgers = require("../models/burgers.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function (req, res) {
@@ -17,9 +17,10 @@ router.get("/", function (req, res) {
 });
 
 router.post("/api/burgers", function (req, res) {
-  burger.create(
-    ["name", "devour"],
-    [req.body.name, req.body.devour],
+  console.log(req.body);
+  burgers.create(
+    ["name", "devours"],
+    [req.body.name, req.body.devours],
     function (result) {
       // Send back the ID of the new quote
       res.json({ id: result.insertId });
@@ -32,9 +33,9 @@ router.put("/api/burgers/:id", function (req, res) {
 
   console.log("condition", condition);
 
-  burger.update(
+  burgers.update(
     {
-      devour: req.body.devours,
+      devours: req.body.devours,
     },
     condition,
     function (result) {
@@ -51,7 +52,7 @@ router.put("/api/burgers/:id", function (req, res) {
 router.delete("/api/burgers/:id", function (req, res) {
   var condition = "id = " + req.params.id;
 
-  cat.delete(condition, function (result) {
+  burgers.delete(condition, function (result) {
     if (result.affectedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();
