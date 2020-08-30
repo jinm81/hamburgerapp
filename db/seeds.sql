@@ -1,4 +1,4 @@
-USE hamburger_db;
+USE burger_db;
 
 
 
